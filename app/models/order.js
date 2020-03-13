@@ -21,8 +21,18 @@ let OrderSchema = new Schema({
     date: {
         type: Date
     }
+},{
+    versionKey: false
 });
 
-//OrderSchema.get()
+// Duplicate the id field as mongoose returns _id field instead of id.
+OrderSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+OrderSchema.set('toJSON', {
+    virtuals: true
+});
 
 module.exports = mongoose.model('order', OrderSchema);

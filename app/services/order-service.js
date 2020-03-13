@@ -13,4 +13,17 @@ exports.save = (order) => {
     return newOrder.save();
 };
 
+exports.get = (orderId) => {
+    const promise = Order.findById(orderId).exec();
+    return promise;
+};
 
+exports.update = (updateOrder) => {
+    const promise = Order.findByIdAndUpdate(updateOrder.id, updateOrder).exec();
+    return promise;
+};
+
+exports.delete = (orderId) => {
+    const promise = Order.findByIdAndRemove(orderId).exec();
+    return promise
+};
